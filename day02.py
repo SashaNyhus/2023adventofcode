@@ -1,6 +1,7 @@
 from cProfile import run
 from helpers import get_input_as_dict
 
+# format input
 input_dict = get_input_as_dict('02')
 print(input_dict)
 cleaned_input = {}
@@ -21,6 +22,7 @@ for game_key, game_data in input_dict.items():
     cleaned_input[game_key_int] = reformatted_draws
 print(cleaned_input)
 
+# part 1: check for valid games
 color_totals = {
     'red': 12,
     'green': 13,
@@ -41,3 +43,25 @@ for game_key, game_data in cleaned_input.items():
     if valid_game:
         running_total = running_total + int(game_key)
 print(running_total)
+
+
+# part 2 fewest possible cubes:
+power_total = 0
+for game_key, game_data in cleaned_input.items():
+    color_counts = {
+        'blue': None,
+        'red': None,
+        'green': None
+    }
+    for draw in game_data:
+        for color, amount in draw.items():
+            amount = int(amount)
+            if ((color_counts[color] is None) or color_counts[color] < amount):
+                color_counts[color] = amount
+    game_power = 1
+    print(color_counts)
+    for color_name, color_amount in color_counts.items():
+        if color_amount is not None:
+            game_power = game_power * color_amount
+    power_total = power_total + game_power
+print(power_total)
