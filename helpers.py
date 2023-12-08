@@ -12,4 +12,4 @@ def get_input_as_dict(day_key):
     for line in list_input:
         split_line = line.split(":")
         new_dict[split_line[0]] = split_line[1]
-    return
+    return new_dict
